@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit de Finanzas para Fotógrafos — Karla Sotelo</title>
+<meta name="description" content="La app que te dice exactamente cuánto cobrar por sesión y a dónde va tu dinero. Acceso de por vida.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #F5F0E8;
+    --beige-dark: #EDE8DF;
+    --beige-deep: #E4DDD2;
+    --border: #D4CCBE;
+    --text: #2C2416;
+    --muted: #8A7D6B;
+    --accent: #B5651D;
+    --accent-light: #D4844A;
+    --green: #4A7A5A;
+    --red: #A0412A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--beige);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--beige);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--accent); font-weight: 500;
+  }
+  .nav-cta {
+    background: var(--accent); color: #FFF;
+    border: none; border-radius: 6px;
+    padding: 8px 18px; font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent-light); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 120px 24px 80px;
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--beige-dark); border: 1px solid var(--border);
+    color: var(--accent); font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; padding: 6px 16px; border-radius: 99px;
+    margin-bottom: 28px; font-weight: 500;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: 1.1; color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+  }
+  .hero p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--muted); max-width: 560px; margin: 0 auto 40px;
+    font-weight: 300;
+  }
+
+  /* ── CONTADOR ── */
+  .counter-wrap {
+    background: var(--text);
+    border-radius: 16px;
+    padding: 28px 32px;
+    max-width: 560px; margin: 0 auto 48px;
+  }
+  .counter-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--beige-deep); margin-bottom: 16px; font-weight: 500;
+  }
+  .counter {
+    display: flex; justify-content: center; gap: 8px; align-items: center;
+    margin-bottom: 16px;
+  }
+  .counter-block {
+    text-align: center;
+  }
+  .counter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 700; color: var(--beige);
+    line-height: 1; min-width: 70px;
+    display: block;
+  }
+  .counter-unit {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-top: 4px;
+  }
+  .counter-sep {
+    font-size: 40px; color: var(--accent); font-family: 'Playfair Display', serif;
+    line-height: 1; padding-bottom: 16px;
+  }
+  .counter-price {
+    display: flex; justify-content: center; align-items: baseline; gap: 12px;
+  }
+  .price-old {
+    font-size: 18px; color: var(--muted); text-decoration: line-through;
+  }
+  .price-new {
+    font-size: 36px; font-weight: 700; color: var(--accent);
+    font-family: 'Playfair Display', serif;
+  }
+  .price-sub {
+    font-size: 13px; color: var(--muted);
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-main {
+    display: inline-block;
+    background: var(--accent); color: #FFF;
+    padding: 18px 48px; border-radius: 10px;
+    font-size: 17px; font-weight: 500; text-decoration: none;
+    border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s; letter-spacing: 0.3px;
+    box-shadow: 0 4px 20px rgba(181,101,29,0.3);
+  }
+  .cta-main:hover {
+    background: var(--accent-light);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(181,101,29,0.4);
+  }
+  .cta-sub {
+    display: block; margin-top: 12px;
+    font-size: 13px; color: var(--muted);
+  }
+
+  /* ── FEATURES ── */
+  .section {
+    max-width: 900px; margin: 0 auto;
+    padding: 80px 24px;
+  }
+  .section-label {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 16px;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.15; margin-bottom: 48px;
+    color: var(--text);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .feature-card {
+    background: var(--beige-dark);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform 0.2s;
+  }
+  .feature-card:hover { transform: translateY(-2px); }
+  .feature-emoji { font-size: 28px; margin-bottom: 14px; display: block; }
+  .feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 400; margin-bottom: 8px;
+    color: var(--text);
+  }
+  .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  /* ── PARA QUIÉN ── */
+  .forwhom {
+    background: var(--beige-dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .checks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px; margin-top: 12px;
+  }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .check-icon { color: var(--green); font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .check-text { font-size: 15px; color: var(--text); }
+
+  /* ── SCREENSHOTS / DEMO ── */
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px; margin-top: 16px;
+  }
+  .screen-mock {
+    background: var(--text);
+    border-radius: 20px;
+    padding: 20px 16px;
+    min-height: 280px;
+    position: relative;
+    overflow: hidden;
+  }
+  .screen-mock::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 4px; background: var(--muted);
+    border-radius: 0 0 4px 4px;
+  }
+  .mock-label {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px; margin-top: 8px;
+  }
+  .mock-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: var(--beige); margin-bottom: 16px;
+  }
+  .mock-row {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .mock-row-label { font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .mock-row-value { font-size: 18px; font-weight: 500; }
+  .mock-row-value.accent { color: var(--accent-light); }
+  .mock-row-value.green { color: #7ED4A3; }
+  .mock-row-value.red { color: #FF8A80; }
+
+  /* ── PRECIO ── */
+  .pricing-card {
+    background: var(--text);
+    border-radius: 20px;
+    padding: 48px 40px;
+    text-align: center;
+    max-width: 480px; margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: var(--accent); opacity: 0.08;
+    border-radius: 50%;
+  }
+  .pricing-tag {
+    display: inline-block;
+    background: var(--accent); color: #FFF;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 99px; margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .pricing-old { font-size: 20px; color: var(--muted); text-decoration: line-through; margin-bottom: 8px; }
+  .pricing-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px; color: var(--beige); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .pricing-currency { font-size: 24px; vertical-align: super; }
+  .pricing-period { font-size: 15px; color: var(--muted); margin-bottom: 32px; }
+  .pricing-features {
+    list-style: none; margin-bottom: 36px; text-align: left;
+  }
+  .pricing-features li {
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: 15px; color: var(--beige-dark);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pricing-features li::before { content: '✓'; color: var(--accent-light); font-weight: 700; }
+
+  /* ── FAQ ── */
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+  .faq-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--text); margin-bottom: 10px;
+  }
+  .faq-a { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 12px; color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.6s ease both; }
+  .hero > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero > *:nth-child(5) { animation-delay: 0.5s; }
+
+  @media (max-width: 600px) {
+    .counter-num { font-size: 36px; min-width: 52px; }
+    .pricing-price { font-size: 56px; }
+    .pricing-card { padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <span class="nav-logo">Karla Sotelo Photography</span>
+  <a href="#precio" class="nav-cta">Comprar ahora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Lanzamiento — Precio especial</div>
+  <h1>La app que pone tus<br><em>finanzas en orden.</em></h1>
+  <p>Registra ingresos, calcula tus impuestos RESICO, controla gastos y sabe exactamente cuánto cobrar por sesión — todo en tu teléfono.</p>
+
+  <!-- CONTADOR -->
+  <div class="counter-wrap">
+    <p class="counter-label">El precio sube en</p>
+    <div class="counter">
+      <div class="counter-block">
+        <span class="counter-num" id="cd-h">00</span>
+        <span class="counter-unit">horas</span>
+      </div>
+      <span class="counter-sep">:</span>
+      <div class="counter-block">
+        <span class="counter-num" id="cd-m">00</span>
+        <span class="counter-unit">minutos</span>
+      </div>
+      <span class="counter-sep">:</span>
+      <div class="counter-block">
+        <span class="counter-num" id="cd-s">00</span>
+        <span class="counter-unit">segundos</span>
+      </div>
+    </div>
+    <div class="counter-price">
+      <span class="price-old">$497 MXN</span>
+      <span class="price-new">$297 MXN</span>
+      <span class="price-sub">acceso de por vida</span>
+    </div>
+  </div>
+
+  <a href="#precio" class="cta-main">Quiero mi acceso ahora →</a>
+  <span class="cta-sub">Pago único · Sin mensualidades · Acceso inmediato</span>
+</section>
+
+<hr class="divider">
+
+<!-- PARA QUIÉN -->
+<section class="forwhom">
+  <div class="section">
+    <p class="section-label">Para ti si eres</p>
+    <h2>Fotógrafo freelance que quiere<br>dejar de adivinar sus números.</h2>
+    <div class="checks">
+      <div>
+        <div class="check-item">
+          <span class="check-icon">✓</span>
+          <span class="check-text">Fotógrafo de familia, retratos o eventos que trabaja por su cuenta</span>
+        </div>
+        <div class="check-item">
+          <span class="check-icon">✓</span>
+          <span class="check-text">No sabes exactamente cuánto te queda después de impuestos</span>
+        </div>
+        <div class="check-item">
+          <span class="check-icon">✓</span>
+          <span class="check-text">Cobras "lo que se acostumbra" sin calcular si es suficiente</span>
+        </div>
+      </div>
+      <div>
+        <div class="check-item">
+          <span class="check-icon">✓</span>
+          <span class="check-text">Estás en RESICO y quieres saber cuánto apartar para impuestos</span>
+        </div>
+        <div class="check-item">
+          <span class="check-icon">✓</span>
+          <span class="check-text">Mezclas gastos del negocio con gastos personales</span>
+        </div>
+        <div class="check-item">
+          <span class="check-icon">✓</span>
+          <span class="check-text">Quieres una herramienta hecha específicamente para fotógrafos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FEATURES -->
+<section class="section">
+  <p class="section-label">Lo que incluye</p>
+  <h2>Todo lo que necesitas,<br>nada que no.</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-emoji">💼</span>
+      <div class="feature-title">Control de ingresos</div>
+      <p class="feature-desc">Registra cada sesión con su forma de pago. Los cobros en efectivo no se suman a tu base de impuestos automáticamente.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-emoji">📊</span>
+      <div class="feature-title">Cálculo RESICO + IVA</div>
+      <p class="feature-desc">Al instante sabes cuánto separar para impuestos según tu ingreso del mes, sin calcularlo a mano.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-emoji">💰</span>
+      <div class="feature-title">Los 4 sobres</div>
+      <p class="feature-desc">Tu neto se distribuye solo: 50% salario, 10% retiro, 10% meses flojos, 20% gastos del negocio.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-emoji">🧮</span>
+      <div class="feature-title">Calculadora de precio</div>
+      <p class="feature-desc">Metes tus gastos fijos, horas disponibles y meta de ganancia mensual. La app te dice cuánto cobrar por sesión.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-emoji">🏠</span>
+      <div class="feature-title">Presupuesto personal</div>
+      <p class="feature-desc">Separas el negocio de lo personal. Controlas gastos del hogar contra tu salario y sabes cuánto te queda.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-emoji">💳</span>
+      <div class="feature-title">Control de tarjetas</div>
+      <p class="feature-desc">Gastos directos con fecha de corte y compras en MSI con pago mensual calculado automáticamente.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DEMO VISUAL -->
+<section class="section">
+  <p class="section-label">Así se ve</p>
+  <h2>Una app diseñada para<br>fotógrafos, no contadores.</h2>
+  <div class="screens">
+    <div class="screen-mock">
+      <p class="mock-label">Dashboard</p>
+      <p class="mock-title">Mayo 2026</p>
+      <div class="mock-row">
+        <div class="mock-row-label">INGRESOS TOTALES</div>
+        <div class="mock-row-value accent">$18,500</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-row-label">IMPUESTOS</div>
+        <div class="mock-row-value red">$3,330</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-row-label">NETO</div>
+        <div class="mock-row-value green">$15,170</div>
+      </div>
+    </div>
+    <div class="screen-mock">
+      <p class="mock-label">Los 4 sobres</p>
+      <p class="mock-title">Distribución</p>
+      <div class="mock-row">
+        <div class="mock-row-label">💰 SALARIO 50%</div>
+        <div class="mock-row-value accent">$7,585</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-row-label">🌱 RETIRO 10%</div>
+        <div class="mock-row-value" style="color:#7ED4A3">$1,517</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-row-label">🗂️ NEGOCIO 20%</div>
+        <div class="mock-row-value" style="color:#89C4F4">$3,034</div>
+      </div>
+    </div>
+    <div class="screen-mock">
+      <p class="mock-label">Precio de sesión</p>
+      <p class="mock-title">Calculadora</p>
+      <div class="mock-row">
+        <div class="mock-row-label">SESIONES POSIBLES</div>
+        <div class="mock-row-value accent">8 al mes</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-row-label">PRECIO MÍNIMO</div>
+        <div class="mock-row-value" style="color:#89C4F4">$1,875</div>
+      </div>
+      <div class="mock-row">
+        <div class="mock-row-label">PRECIO SUGERIDO</div>
+        <div class="mock-row-value green">$3,750</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PRECIO -->
+<section class="section" id="precio">
+  <p class="section-label" style="text-align:center;">Precio</p>
+  <h2 style="text-align:center; margin-bottom:40px;">Un pago.<br>Acceso de por vida.</h2>
+  <div class="pricing-card">
+    <span class="pricing-tag">Precio de lanzamiento</span>
+    <p class="pricing-old">$497 MXN</p>
+    <p class="pricing-price"><span class="pricing-currency">$</span>297</p>
+    <p class="pricing-period">MXN · Pago único · Sin mensualidades</p>
+    <ul class="pricing-features">
+      <li>App instalable en iPhone y Android</li>
+      <li>Control de ingresos con cálculo RESICO+IVA</li>
+      <li>Los 4 sobres automáticos</li>
+      <li>Calculadora de precio de sesión</li>
+      <li>Presupuesto personal y gastos</li>
+      <li>Control de tarjetas y MSI</li>
+      <li>Datos guardados en la nube</li>
+      <li>Acceso desde cualquier dispositivo</li>
+      <li>Todas las actualizaciones futuras</li>
+    </ul>
+    <a href="https://mpago.la/TULINK" class="cta-main" style="display:block; text-align:center;">
+      Comprar ahora — $297 MXN →
+    </a>
+    <p style="font-size:12px; color:var(--muted); margin-top:14px;">Pago seguro vía Mercado Pago · Transferencia disponible</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<section class="section">
+  <p class="section-label">Preguntas frecuentes</p>
+  <h2>Todo lo que<br>necesitas saber.</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <p class="faq-q">¿Funciona en iPhone y Android?</p>
+      <p class="faq-a">Sí. Es una app web progresiva (PWA) — la abres en Safari o Chrome, la agregas a tu pantalla de inicio y funciona como cualquier app. Sin descargas de tienda.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">¿Es solo para fotógrafos en México?</p>
+      <p class="faq-a">El cálculo de RESICO+IVA está hecho para el régimen fiscal mexicano. Fotógrafos de otros países pueden usar todas las demás funciones sin problema.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">¿Se pierden mis datos si cambio de teléfono?</p>
+      <p class="faq-a">No. Tus datos están guardados en la nube con tu cuenta de Google. Entras desde cualquier dispositivo y están ahí.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">¿Qué pasa después de pagar?</p>
+      <p class="faq-a">Te mandamos la URL de la app por WhatsApp o correo. La abres, creas tu cuenta y listo. El acceso es inmediato.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">¿Hay mensualidad?</p>
+      <p class="faq-a">No. Es un pago único de $297 MXN y el acceso es de por vida, incluyendo todas las actualizaciones futuras.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CIERRE CTA -->
+<section class="section" style="text-align:center; padding-bottom:100px;">
+  <p class="section-label">¿Lista para empezar?</p>
+  <h2 style="margin-bottom:16px;">Tus números,<br><em style="font-style:italic; color:var(--accent);">en orden.</em></h2>
+  <p style="color:var(--muted); font-size:16px; margin-bottom:36px; max-width:400px; margin-left:auto; margin-right:auto;">
+    Únete a los fotógrafos que ya saben exactamente cuánto cobrar y a dónde va su dinero.
+  </p>
+  <a href="#precio" class="cta-main">Quiero mi acceso — $297 MXN →</a>
+  <span class="cta-sub">El precio sube pronto. No esperes más.</span>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Karla Sotelo Photography · Kit de Finanzas para Fotógrafos © 2026</p>
+  <p style="margin-top:6px;">Diseñado con ❤️ para fotógrafos freelance</p>
+</footer>
+
+<!-- CONTADOR JS -->
+<script>
+  // Fecha objetivo — 72 horas desde ahora
+  // Cambia esta fecha a cuando quieras que termine la oferta
+  const LAUNCH_KEY = 'kf_launch_end'
+  let endTime = localStorage.getItem(LAUNCH_KEY)
+  if (!endTime) {
+    endTime = Date.now() + 72 * 60 * 60 * 1000
+    localStorage.setItem(LAUNCH_KEY, endTime)
+  }
+  endTime = parseInt(endTime)
+
+  function pad(n) { return String(n).padStart(2, '0') }
+
+  function tick() {
+    const diff = endTime - Date.now()
+    if (diff <= 0) {
+      document.getElementById('cd-h').textContent = '00'
+      document.getElementById('cd-m').textContent = '00'
+      document.getElementById('cd-s').textContent = '00'
+      return
+    }
+    const h = Math.floor(diff / 3600000)
+    const m = Math.floor((diff % 3600000) / 60000)
+    const s = Math.floor((diff % 60000) / 1000)
+    document.getElementById('cd-h').textContent = pad(h)
+    document.getElementById('cd-m').textContent = pad(m)
+    document.getElementById('cd-s').textContent = pad(s)
+  }
+
+  tick()
+  setInterval(tick, 1000)
+
+  // Smooth scroll para navegación interna
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault()
+      const target = document.querySelector(a.getAttribute('href'))
+      if (target) target.scrollIntoView({ behavior: 'smooth' })
+    })
+  })
+</script>
+</body>
+</html>
